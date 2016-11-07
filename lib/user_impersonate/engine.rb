@@ -9,6 +9,12 @@ module UserImpersonate
       end
     end
 
+    initializer 'user_impersonate.action_controller' do |app|
+      ActiveSupport.on_load :action_controller do
+        helper UserImpersonate::ApplicationHelper
+      end
+    end
+
     config.to_prepare do
       ::ApplicationController.helper(UserImpersonate::ApplicationHelper)
       ::ApplicationController.send(:include, UserImpersonate::ApplicationHelper)
